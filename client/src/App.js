@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useInsertionEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,7 +7,18 @@ import {
 } from 'react-router-dom';
 import { accessToken, logout, getCurrentUserProfile } from './spotify'
 import { catchErrors } from './utils'
-import './App.css';
+import styled from 'styled-components/macro'
+import { GlobalStyle } from './styles';
+
+
+const StyledLoginBUtton = styled.a`
+background-color: var(--green);
+color: var(--white);
+padding: 10px 20px;
+margin: 20px auto;
+border-radius: 30px;
+display: inline-block
+`
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -39,14 +50,15 @@ function App() {
 
   return (
     <div className="App">
+      <GlobalStyle />
       <header className="App-header">
         {!token ? (
-        <a
+        <StyledLoginBUtton
           className="App-link"
           href="http://localhost:8888/login"
         >
           Log in to Spotify
-        </a>
+        </StyledLoginBUtton>
         ) : (
           <Router>
             <ScrollToTop />
