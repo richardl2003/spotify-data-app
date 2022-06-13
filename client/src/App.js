@@ -9,6 +9,7 @@ import { accessToken, logout, getCurrentUserProfile } from './spotify'
 import { catchErrors } from './utils'
 import styled from 'styled-components/macro'
 import { GlobalStyle } from './styles';
+import { Login } from'./pages'
 
 
 const StyledLoginBUtton = styled.a`
@@ -53,12 +54,7 @@ function App() {
       <GlobalStyle />
       <header className="App-header">
         {!token ? (
-        <StyledLoginBUtton
-          className="App-link"
-          href="http://localhost:8888/login"
-        >
-          Log in to Spotify
-        </StyledLoginBUtton>
+          <Login />
         ) : (
           <Router>
             <ScrollToTop />
