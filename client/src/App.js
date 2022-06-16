@@ -9,7 +9,7 @@ import { accessToken, logout, getCurrentUserProfile } from './spotify'
 import { catchErrors } from './utils'
 import styled from 'styled-components/macro'
 import { GlobalStyle } from './styles';
-import { Login, Profile, TopArtists, TopTracks, Playlists } from'./pages'
+import { Login, Profile, TopArtists, TopTracks, Playlists, Playlist } from'./pages'
 
 
 const StyledLogoutButton = styled.button`
@@ -78,7 +78,7 @@ function App() {
                 <TopTracks />
               </Route>
               <Route path="/playlists/:id">
-                <h1>Playlist</h1>
+                <Playlist />
               </Route>
               <Route path="/playlists">
                 <Playlists />
