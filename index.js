@@ -2,11 +2,17 @@ require('dotenv').config()
 const express = require('express');
 const axios = require('axios')
 const app = express();
-const port = 8888;
+const path = require('path')
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
+const FRONTEND_URI = process.env.FRONTEND_URI
+const PORT = process.env.PORT || 8888
+
+
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 
 app.get('/', (req, res) => {
@@ -74,7 +80,7 @@ app.get('/callback', (req, res) => {
 
 
           // Redirect to react app
-          res.redirect(`http://localhost:3000/?${queryparams}`)
+          res.redirect(`${FRONTEND_URI}?${queryparams}`)
 
           // Pass along tokens in query params
 
@@ -109,6 +115,11 @@ app.get('/refresh_token', (req, res) => {
       });
 });
 
-app.listen(port, () => {
-    console.log(`Express app listening at http://localhost:${port}`);
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Express app listening at http://localhost:${PORT}`);
 });
